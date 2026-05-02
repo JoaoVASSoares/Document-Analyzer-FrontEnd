@@ -1,6 +1,6 @@
 import { inject } from "@angular/core";
 import { CanActivateFn, GuardResult, MaybeAsync, Router } from "@angular/router";
-import { AuthenticationService } from "../services/Authentication.service";
+import { AuthenticationService } from "../services/authentication.service";
 
 export const authGuard = (): CanActivateFn => {
   return (): MaybeAsync<GuardResult> => {

@@ -1,6 +1,6 @@
 import { HttpInterceptorFn } from "@angular/common/http";
 import { inject } from "@angular/core";
-import { AuthenticationService } from "../services/Authentication.service";
+import { AuthenticationService } from "../services/authentication.service";
 
 /** Pedidos que não devem levar JWT (login público e registo). */
 function isPublicAuthRequest(req: { url: string; method: string }): boolean {
@@ -14,8 +14,7 @@ function isPublicAuthRequest(req: { url: string; method: string }): boolean {
   let pathname = url;
   try {
     pathname = new URL(req.url).pathname.toLowerCase();
-  } catch {
-  }
+  } catch {}
   const base = pathname.replace(/\/+$/, "");
   return base.endsWith("/users");
 }

@@ -4,7 +4,7 @@ import { Router } from "@angular/router";
 import { finalize } from "rxjs";
 import { PrimeNGModule } from "../../components/primeNG.module";
 import { LoginPayload } from "../../interfaces/login.interface";
-import { AuthenticationService } from "../../services/Authentication.service";
+import { AuthenticationService } from "../../services/authentication.service";
 
 @Component({
   selector: "app-login",

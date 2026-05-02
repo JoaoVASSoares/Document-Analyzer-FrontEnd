@@ -5,7 +5,7 @@ import { finalize } from "rxjs";
 import { PrimeNGModule } from "../../components/primeNG.module";
 import { MatchControlDirective } from "../../directives/match-control.directive";
 import { UserRegisterPayload } from "../../interfaces/user.interface";
-import { UserService } from "../../services/User.service";
+import { UserService } from "../../services/user.service";
 
 @Component({
   selector: "app-register",
