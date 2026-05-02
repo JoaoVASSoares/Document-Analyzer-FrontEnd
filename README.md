@@ -4,6 +4,30 @@ SPA em **Angular 21** para o produto **Document Analyzer** (VerifyDoc): login e 
 
 Para a stack e execução do **backend**, consulte o README da API: [`../api/README.md`](../api/README.md).
 
+## Pré-visualização da interface
+
+Algumas telas da aplicação em execução (tema claro, PrimeNG).
+
+### Login
+
+![Tela de login — VerifyDoc](docs/screenshots/login.png)
+
+### Registo
+
+![Tela de registo — VerifyDoc](docs/screenshots/registro.png)
+
+### Dashboard
+
+![Dashboard — área autenticada](docs/screenshots/dashboard.png)
+
+### Upload
+
+![Upload de documentos](docs/screenshots/upload.png)
+
+### Documentos
+
+![Listagem «Meus Documentos»](docs/screenshots/documentos.png)
+
 ## Requisitos
 
 | Ambiente | Versão |
@@ -106,6 +130,7 @@ npx http-server dist/verifydoc-front/browser -p 4200
 | `src/app/pipes/markdown.pipe.ts` | Resumo Markdown → HTML seguro |
 | `src/environments/` | `baseUrl` da API (`environment.ts`, `environment.development.ts`, `environment.docker.ts`) |
 | `Dockerfile`, `nginx.conf` | Imagem de produção (Nginx + *proxy* `/api`) |
+| `docs/screenshots/` | Capturas para documentação (README) |
 
 ## Ferramentas Angular CLI
 
