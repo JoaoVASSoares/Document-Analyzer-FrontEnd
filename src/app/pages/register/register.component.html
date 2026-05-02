@@ -1,0 +1,123 @@
+<main class="register-page">
+  <header>
+    <div class="brand-container">
+      <span class="back-button" (click)="navigateToLogin()"> <i class="pi pi-angle-left"></i> Voltar para o login </span>
+      <figure class="brand-logo">
+        <img src="icons/logo.png" alt="" width="40" height="40" decoding="async" />
+      </figure>
+      <p id="login-brand-name" class="brand-name">VerifyDoc</p>
+    </div>
+    <div class="register-title-section">
+      <h1 class="register-title">Comece sua jornada inteligente</h1>
+      <p class="register-subtitle">Analise, resuma e compreenda documentos complexos em segundos com nossa IA.</p>
+    </div>
+  </header>
+  <section class="content-card-section">
+    <p-card class="content-card">
+      <ng-template #header>
+        <div class="content-card-header">
+          <p-badge value="SaaS Premium" class="content-card-badge" />
+          <h4 class="content-card-title">Passo 1 de 1</h4>
+        </div>
+        <div class="content-card-header-title">
+          <h2 class="header-title">Criar Conta</h2>
+          <p class="header-subtitle">Preencha os dados abaixo para configurar seu workspace.</p>
+        </div>
+      </ng-template>
+      <form class="form-container" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        <div class="form-group" style="margin-bottom: 16px">
+          <label for="name">Nome Completo</label>
+          <p-inputgroup>
+            <p-inputgroup-addon>
+              <i class="pi pi-user"></i>
+            </p-inputgroup-addon>
+            <input pInputText id="name" formControlName="fullName" placeholder="Ex: Alex Rivera" autocomplete="name" />
+          </p-inputgroup>
+          @if (registerForm.controls.fullName.touched && registerForm.controls.fullName.invalid) {
+            <small class="error">Nome completo é obrigatório.</small>
+          }
+        </div>
+        <div class="form-group" style="margin-bottom: 16px">
+          <label for="email">E-mail</label>
+          <p-inputgroup>
+            <p-inputgroup-addon>
+              <i class="pi pi-envelope"></i>
+            </p-inputgroup-addon>
+            <input pInputText id="email" type="email" formControlName="email" placeholder="Ex: alex@exemplo.com" autocomplete="email" />
+          </p-inputgroup>
+          @if (registerForm.controls.email.touched && registerForm.controls.email.invalid) {
+            <small class="error">
+              @if (registerForm.controls.email.errors?.["required"]) {
+                E-mail é obrigatório.
+              }
+              @if (registerForm.controls.email.errors?.["email"]) {
+                Informe um e-mail válido.
+              }
+            </small>
+          }
+        </div>
+        <div class="password-container">
+          <div class="form-group" style="width: 50%">
+            <label for="password">Senha</label>
+            <p-inputgroup>
+              <p-inputgroup-addon>
+                <i class="pi pi-lock"></i>
+              </p-inputgroup-addon>
+              <p-password
+                [toggleMask]="true"
+                autocomplete="off"
+                [feedback]="true"
+                promptLabel="Escolha uma senha forte"
+                weakLabel="Senha fraca"
+                mediumLabel="Senha média"
+                strongLabel="Senha forte"
+                weakRegex="^(?=.{6,})(?=.*[a-z])(?=.*\d)[a-z\d]+$"
+                mediumRegex="^(?=.{6,})(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]+$"
+                strongRegex="^(?=.{6,})(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).+$"
+                placeholder="Senha"
+                formControlName="password"
+              />
+            </p-inputgroup>
+            @if (registerForm.controls.password.touched && registerForm.controls.password.invalid) {
+              <small class="error">
+                @if (registerForm.controls.password.errors?.["required"]) {
+                  Senha é obrigatória.
+                }
+                @if (registerForm.controls.password.errors?.["minlength"]) {
+                  A senha deve ter pelo menos 6 caracteres.
+                }
+              </small>
+            }
+          </div>
+          <div class="form-group" style="width: 50%">
+            <label for="confirm-password">Confirmar Senha</label>
+            <p-inputgroup>
+              <p-inputgroup-addon>
+                <i class="pi pi-check-circle"></i>
+              </p-inputgroup-addon>
+              <p-password [toggleMask]="true" autocomplete="off" [feedback]="false" placeholder="Confirmar senha" formControlName="confirmPassword" appMatchControl="password" />
+            </p-inputgroup>
+            @if (registerForm.controls.confirmPassword.touched && registerForm.controls.confirmPassword.invalid) {
+              <small class="error">
+                @if (registerForm.controls.confirmPassword.errors?.["required"]) {
+                  A confirmação de senha é obrigatória.
+                }
+              </small>
+            }
+
+            @if (registerForm.controls.confirmPassword.touched && registerForm.controls.confirmPassword.errors?.["matchControl"]) {
+              <small class="error">As senhas não conferem.</small>
+            }
+          </div>
+        </div>
+        <div class="register-button">
+          <p-button type="submit" label="Criar conta grátis" icon="pi pi-arrow-right" iconPos="right" styleClass="w-full" [loading]="isSubmitting()" />
+          <small class="error">{{ errorMessage }}</small>
+        </div>
+      </form>
+      <ng-template #footer>
+        <p style="text-align: center">Já tem uma conta?<p-button label="Entrar agora" variant="text" (onClick)="navigateToLogin()" /></p>
+      </ng-template>
+    </p-card>
+  </section>
+</main>

@@ -9,8 +9,8 @@
     "test": "ng test"
   },
   "prettier": {
-    "printWidth": 100,
-    "singleQuote": true,
+    "printWidth": 180,
+    "singleQuote": false,
     "overrides": [
       {
         "files": "*.html",
@@ -29,6 +29,12 @@
     "@angular/forms": "^21.0.0",
     "@angular/platform-browser": "^21.0.0",
     "@angular/router": "^21.0.0",
+    "@primeuix/themes": "^2.0.3",
+    "dompurify": "^3.4.2",
+    "marked": "^18.0.3",
+    "primeflex": "^4.0.0",
+    "primeicons": "^7.0.0",
+    "primeng": "^21.1.6",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0"
   },
@@ -36,6 +42,7 @@
     "@angular/build": "^21.0.5",
     "@angular/cli": "^21.0.5",
     "@angular/compiler-cli": "^21.0.0",
+    "@types/dompurify": "^3.0.5",
     "jsdom": "^27.1.0",
     "typescript": "~5.9.2",
     "vitest": "^4.0.8"

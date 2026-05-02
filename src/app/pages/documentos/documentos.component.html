@@ -1,0 +1,116 @@
+<div class="doc-page">
+  <header class="doc-page__header">
+    <div class="doc-page__titles">
+      <h1 class="doc-page__title">Meus Documentos</h1>
+      <p class="doc-page__subtitle">Gerencie e visualize todos os arquivos enviados para análise.</p>
+    </div>
+    <p-button label="Novo Upload" icon="pi pi-plus" (onClick)="novoUpload()" styleClass="btn-accent" />
+  </header>
+
+  @if (loadError(); as err) {
+    <p class="doc-page__alert" role="alert">{{ err }}</p>
+  }
+
+  <section class="doc-toolbar surface-card border-round shadow-1">
+    <div class="doc-toolbar__search">
+      <p-iconfield iconPosition="left" styleClass="doc-search-field">
+        <p-inputicon class="pi pi-search" />
+        <input
+          pInputText
+          type="search"
+          placeholder="Buscar por nome do arquivo..."
+          [ngModel]="busca()"
+          (ngModelChange)="busca.set($event)"
+          class="w-full"
+        />
+      </p-iconfield>
+    </div>
+    <div class="doc-toolbar__filters">
+      <p-select
+        [options]="opcoesStatus"
+        optionLabel="label"
+        optionValue="value"
+        placeholder="Status"
+        [ngModel]="filtroStatus()"
+        (ngModelChange)="filtroStatus.set($event)"
+        styleClass="doc-filter"
+      />
+      <p-select
+        [options]="opcoesTipo"
+        optionLabel="label"
+        optionValue="value"
+        placeholder="Tipo"
+        [ngModel]="filtroTipo()"
+        (ngModelChange)="filtroTipo.set($event)"
+        styleClass="doc-filter"
+      />
+      <p-select
+        [options]="opcoesPeriodo"
+        optionLabel="label"
+        optionValue="value"
+        placeholder="Período"
+        [ngModel]="filtroPeriodo()"
+        (ngModelChange)="filtroPeriodo.set($event)"
+        styleClass="doc-filter"
+      />
+      <span class="doc-toolbar__funnel" aria-hidden="true"><i class="pi pi-filter"></i></span>
+    </div>
+  </section>
+
+  <div class="doc-table-wrap surface-card border-round shadow-1">
+    <p-table
+      [value]="filtrados()"
+      [paginator]="true"
+      [rows]="5"
+      [rowsPerPageOptions]="[5, 10, 25, 50]"
+      [scrollable]="true"
+      [scrollHeight]="tableScrollHeight"
+      [showCurrentPageReport]="true"
+      currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} documentos"
+      styleClass="doc-table"
+    >
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Nome do Documento</th>
+          <th>Tipo</th>
+          <th>Tamanho</th>
+          <th>Status</th>
+          <th>Modificado</th>
+          <th class="doc-col-acoes">Ações</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-doc>
+        <tr>
+          <td>
+            <div class="doc-nome-cell">
+              <i [class]="iconeTipo(doc.tipo) + ' doc-nome-cell__icon'"></i>
+              <span class="doc-nome-cell__text">{{ doc.nome }}</span>
+            </div>
+          </td>
+          <td>{{ doc.tipo }}</td>
+          <td>{{ formatBytes(doc.tamanhoBytes) }}</td>
+          <td>
+            <p-tag [value]="labelStatus(doc.status)" [severity]="severityStatus(doc.status)" />
+          </td>
+          <td>{{ doc.modificado | date : "dd/MM/yyyy" }}</td>
+          <td class="doc-col-acoes">
+            <div class="doc-acoes">
+              <p-button label="Visualizar" icon="pi pi-eye" [text]="true" (onClick)="visualizar(doc)" />
+              <p-button
+                label="Excluir"
+                icon="pi pi-trash"
+                severity="danger"
+                [text]="true"
+                (onClick)="excluir(doc)"
+              />
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+
+  <footer class="doc-footer">
+    <span>© {{ anoAtual }} VerifyDoc. System Status: Operacional</span>
+  </footer>
+</div>

@@ -1,0 +1,100 @@
+<main class="flex login-page">
+  <aside class="left-section" aria-labelledby="login-brand-name">
+    <header class="title-section">
+      <figure class="brand-logo">
+        <img src="icons/logo.png" alt="" width="40" height="40" decoding="async" />
+      </figure>
+      <p id="login-brand-name" class="brand-name">VerifyDoc</p>
+    </header>
+
+    <section class="description-section" aria-labelledby="login-headline">
+      <h1 id="login-headline" class="description-title">Análise inteligente de documentos em segundos.</h1>
+      <p class="description-text">Utilize nossa IA de última geração para resumir, extrair dados e entender arquivos complexos com precisão cirúrgica.</p>
+    </section>
+
+    <section class="card-section" aria-label="Destaques do produto">
+      <article class="card-div feature-card">
+        <p-card class="feature-card">
+          <div class="card-content">
+            <i class="pi pi-sparkles" aria-hidden="true"></i>
+            <div class="card-body">
+              <h2 class="card-title">Processamento Ultra-Rápido</h2>
+              <p>Analise centenas de páginas instantaneamente.</p>
+            </div>
+          </div>
+        </p-card>
+      </article>
+      <article class="card-div feature-card">
+        <p-card class="feature-card">
+          <div class="card-content">
+            <i class="pi pi-shield" aria-hidden="true"></i>
+            <div class="card-body">
+              <h2 class="card-title">Segurança Enterprise</h2>
+              <p>Seus dados são criptografados e privados.</p>
+            </div>
+          </div>
+        </p-card>
+      </article>
+    </section>
+
+    <footer class="aside-footer"><i class="pi pi-verified" style="color: green"></i><span style="margin-left: 8px">2026 VerifyDoc. Todos os direitos reservados.</span></footer>
+  </aside>
+
+  <aside class="right-section" aria-label="Área de autenticação">
+    <section class="description-section login-intro" aria-labelledby="login-welcome-title">
+      <h1 id="login-welcome-title" class="description-title">Bem-vindo de volta</h1>
+      <p id="login-welcome-subtitle" class="description-text">Insira suas credenciais para acessar sua conta</p>
+    </section>
+
+    <section class="login-form-section">
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div class="form-group" style="margin-bottom: 16px">
+          <label for="email">E-mail</label>
+          <p-inputgroup>
+            <p-inputgroup-addon>
+              <i class="pi pi-envelope"></i>
+            </p-inputgroup-addon>
+            <input pInputText placeholder="E-mail" formControlName="email" />
+          </p-inputgroup>
+          @if (loginForm.controls.email.touched && loginForm.controls.email.invalid) {
+            <small class="error">
+              @if (loginForm.controls.email.errors?.["required"]) {
+                E-mail é obrigatório.
+              }
+              @if (loginForm.controls.email.errors?.["email"]) {
+                Informe um e-mail válido.
+              }
+            </small>
+          }
+        </div>
+        <div class="form-group">
+          <label for="password">Senha</label>
+          <p-inputgroup>
+            <p-inputgroup-addon>
+              <i class="pi pi-lock"></i>
+            </p-inputgroup-addon>
+            <p-password [toggleMask]="true" autocomplete="off" [feedback]="false" placeholder="Senha" formControlName="password" />
+          </p-inputgroup>
+          @if (loginForm.controls.password.touched && loginForm.controls.password.invalid) {
+            <small class="error">
+              @if (loginForm.controls.password.errors?.["required"]) {
+                Senha é obrigatória.
+              }
+              @if (loginForm.controls.password.errors?.["minlength"]) {
+                A senha deve ter pelo menos 6 caracteres.
+              }
+            </small>
+          }
+        </div>
+        <div class="login-button">
+          <p-button type="submit" label="Entrar" icon="pi pi-arrow-right" iconPos="right" styleClass="w-full" [loading]="isSubmitting()" />
+          <small class="error">{{ errorMessage }}</small>
+        </div>
+      </form>
+    </section>
+
+    <footer class="login-footer">
+      <p>Não tem uma conta?<p-button label="Criar conta agora" variant="text" (onClick)="navigateToRegister()" /></p>
+    </footer>
+  </aside>
+</main>

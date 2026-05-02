@@ -1,0 +1,64 @@
+@if (documento(); as doc) {
+  <div class="det-page">
+    <div class="det-topbar">
+      <a routerLink="/documentos" class="det-back"><i class="pi pi-arrow-left"></i> Voltar</a>
+    </div>
+
+    <header class="det-header">
+      <div class="det-header__main">
+        <div class="det-title-row">
+          <h1 class="det-title">{{ doc.nome }}</h1>
+          <p-tag [value]="statusText(doc.status)" [severity]="severityLabel(doc.status)" />
+        </div>
+        <p class="det-meta">
+          Enviado por {{ doc.enviadoPor }} em {{ doc.modificado | date : "dd/MM/yyyy" }} •
+          {{ formatBytes(doc.tamanhoBytes) }}
+        </p>
+      </div>
+      <div class="det-header__actions">
+        <p-button label="Excluir" icon="pi pi-trash" [outlined]="true" severity="danger" (onClick)="excluir()" />
+        <p-button
+          [label]="doc.tipo === 'PDF' ? 'Baixar PDF' : 'Baixar arquivo'"
+          icon="pi pi-download"
+          (onClick)="baixar()"
+          styleClass="btn-accent"
+        />
+      </div>
+    </header>
+
+    <div class="det-main surface-card border-round shadow-1">
+      <p-tabs [value]="aba()" (valueChange)="onTabChange($event)">
+        <p-tablist>
+          <p-tab value="pdf">{{ doc.tipo === "PDF" ? "PDF original" : "Arquivo" }}</p-tab>
+          <p-tab value="resumo">Resumo</p-tab>
+        </p-tablist>
+        <p-tabpanels>
+          <p-tabpanel value="pdf">
+            <div class="det-tab-body det-tab-body--pdf">
+              @if (safePdfUrl(); as pdfSrc) {
+                <iframe [src]="pdfSrc" title="Visualização do PDF" class="det-pdf-frame"></iframe>
+              } @else {
+                <p class="det-pdf-fallback">
+                  @if (doc.tipo === "PDF") {
+                    Não foi possível carregar a pré-visualização do PDF. Use “Baixar PDF” para abrir o arquivo.
+                  } @else {
+                    Pré-visualização embutida disponível apenas para PDF. Use “Baixar arquivo” para obter o documento.
+                  }
+                </p>
+              }
+            </div>
+          </p-tabpanel>
+          <p-tabpanel value="resumo">
+            <div class="det-tab-body det-tab-body--resumo">
+              <div class="det-resumo-md" [innerHTML]="doc.resumoExecutivo | markdown"></div>
+            </div>
+          </p-tabpanel>
+        </p-tabpanels>
+      </p-tabs>
+    </div>
+
+    <footer class="det-footer">
+      <span>© {{ anoAtual }} VerifyDoc · System Status: Operacional</span>
+    </footer>
+  </div>
+}

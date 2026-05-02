@@ -1,0 +1,260 @@
+.det-page {
+  --det-accent: #573cdd;
+  padding: 1rem 1.5rem 2rem;
+  font-family:
+    "Roboto Flex",
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    sans-serif;
+  max-width: 1320px;
+  margin: 0 auto;
+}
+
+.det-topbar {
+  margin-bottom: 0.75rem;
+}
+
+.det-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--det-accent);
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 0.92rem;
+}
+
+.det-back:hover {
+  text-decoration: underline;
+}
+
+.det-header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: flex-start;
+  margin-bottom: 1.25rem;
+}
+
+.det-title-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.det-title {
+  margin: 0;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #181820;
+}
+
+.det-meta {
+  margin: 0.35rem 0 0;
+  font-size: 0.88rem;
+  color: #5c5c6e;
+}
+
+.det-header__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+:host ::ng-deep .btn-accent.p-button {
+  background: var(--det-accent);
+  border-color: var(--det-accent);
+}
+
+:host ::ng-deep .btn-accent.p-button:not(:disabled):hover {
+  filter: brightness(0.94);
+}
+
+.det-main {
+  padding: 0.75rem 0.85rem 1rem;
+  overflow: hidden;
+}
+
+:host ::ng-deep .det-main .p-tablist-tab-list {
+  font-family:
+    "Roboto Flex",
+    ui-sans-serif,
+    system-ui,
+    sans-serif;
+}
+
+.det-tab-body {
+  padding-top: 0.75rem;
+}
+
+.det-tab-body--pdf {
+  min-height: min(70vh, 720px);
+  background: var(--p-surface-50);
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.det-pdf-frame {
+  display: block;
+  width: 100%;
+  min-height: min(70vh, 720px);
+  height: min(70vh, 720px);
+  border: 0;
+  background: var(--p-surface-0);
+}
+
+.det-pdf-fallback {
+  margin: 0;
+  padding: 1.25rem;
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: #4b5563;
+}
+
+.det-tab-body--resumo {
+  min-height: 10rem;
+  max-height: min(65vh, 680px);
+  overflow: auto;
+  overscroll-behavior: contain;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  background: var(--p-surface-0);
+  border: 1px solid var(--p-content-border-color);
+}
+
+:host ::ng-deep .det-resumo-md {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #1f2937;
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    margin: 1.1rem 0 0.5rem;
+    font-weight: 700;
+    color: #111827;
+    line-height: 1.3;
+  }
+
+  h1:first-child,
+  h2:first-child,
+  h3:first-child,
+  h4:first-child {
+    margin-top: 0;
+  }
+
+  h1 {
+    font-size: 1.35rem;
+  }
+
+  h2 {
+    font-size: 1.18rem;
+  }
+
+  h3 {
+    font-size: 1.05rem;
+  }
+
+  h4 {
+    font-size: 1rem;
+  }
+
+  p {
+    margin: 0.65rem 0;
+  }
+
+  ul,
+  ol {
+    margin: 0.5rem 0 0.75rem;
+    padding-left: 1.35rem;
+  }
+
+  li {
+    margin: 0.25rem 0;
+  }
+
+  strong {
+    font-weight: 600;
+  }
+
+  a {
+    color: var(--det-accent);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 0.88em;
+    background: var(--p-surface-100);
+    padding: 0.12rem 0.35rem;
+    border-radius: 4px;
+  }
+
+  pre {
+    margin: 0.75rem 0;
+    padding: 0.85rem 1rem;
+    overflow: auto;
+    font-size: 0.85rem;
+    line-height: 1.45;
+    background: var(--p-surface-100);
+    border-radius: 8px;
+    border: 1px solid var(--p-content-border-color);
+  }
+
+  pre code {
+    padding: 0;
+    background: transparent;
+  }
+
+  blockquote {
+    margin: 0.65rem 0;
+    padding: 0.35rem 0 0.35rem 0.85rem;
+    border-left: 3px solid var(--det-accent);
+    color: #4b5563;
+  }
+
+  hr {
+    margin: 1rem 0;
+    border: 0;
+    border-top: 1px solid var(--p-content-border-color);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0.75rem 0;
+    font-size: 0.88rem;
+  }
+
+  th,
+  td {
+    border: 1px solid var(--p-content-border-color);
+    padding: 0.4rem 0.55rem;
+    text-align: left;
+  }
+
+  th {
+    background: var(--p-surface-50);
+    font-weight: 600;
+  }
+}
+
+:host ::ng-deep .det-resumo-md .det-resumo-empty {
+  margin: 0;
+  color: #6b7280;
+}
+
+.det-footer {
+  margin-top: 1.5rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--p-content-border-color);
+  font-size: 0.82rem;
+  color: var(--p-text-muted-color);
+}

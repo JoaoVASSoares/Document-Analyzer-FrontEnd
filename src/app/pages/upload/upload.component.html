@@ -1,0 +1,120 @@
+<div class="upload-page">
+  <header class="upload-header">
+    <div class="upload-header__titles">
+      <h1 class="upload-title">Upload de Documentos</h1>
+      <p class="upload-subtitle">Arraste um arquivo ou selecione manualmente. Limite de 10 MB — um arquivo por envio.</p>
+    </div>
+  </header>
+
+  <div class="upload-grid">
+    <section class="upload-main">
+      <div
+        class="dropzone"
+        [class.dropzone--active]="dragActive()"
+        (click)="pickFiles()"
+        (keydown.enter)="pickFiles()"
+        (keydown.space)="$event.preventDefault(); pickFiles()"
+        tabindex="0"
+        role="button"
+        [attr.aria-label]="'Área de arrastar e soltar arquivo'"
+        (dragover)="onDragOver($event)"
+        (dragleave)="onDragLeave($event)"
+        (drop)="onDrop($event)"
+      >
+        <div class="dropzone__icon">
+          <i class="pi pi-cloud-upload"></i>
+        </div>
+        <p class="dropzone__title">Arraste e solte seu arquivo</p>
+        <p class="dropzone__hint">Ou clique para selecionar no dispositivo. Apenas um arquivo por vez (sem envio em lote).</p>
+        <div class="dropzone__formats">
+          <span class="fmt">PDF</span>
+          <span class="fmt">DOC</span>
+          <span class="fmt">DOCX</span>
+        </div>
+      </div>
+
+      <input #fileInput type="file" class="visually-hidden" [attr.accept]="'.pdf,.doc,.docx'" (change)="onFileInputChange($event)" />
+
+      @if (alertMessage()) {
+        <p class="upload-alert" role="alert">{{ alertMessage() }}</p>
+      }
+
+      <div class="queue-card surface-card border-round">
+        <div class="queue-card__head">
+          <div class="queue-card__title">
+            <span>Fila de Arquivos</span>
+            @if (row()) {
+              <p-badge [value]="1" />
+            }
+          </div>
+          @if (row()) {
+            <button type="button" class="link-button" (click)="clearQueue()">Limpar tudo</button>
+          }
+        </div>
+
+        @if (!row()) {
+          <p class="queue-empty">Nenhum arquivo na fila.</p>
+        } @else {
+          <div class="queue-item">
+            <div class="queue-item__row">
+              <i class="pi pi-file queue-item__icon"></i>
+              <div class="queue-item__meta">
+                <div class="queue-item__name">{{ row()!.file.name }}</div>
+                <div class="queue-item__status">
+                  @switch (row()!.status) {
+                    @case ("aguardando") {
+                      <span>Aguardando</span>
+                    }
+                    @case ("enviando") {
+                      <span>Enviando… {{ row()!.progress }}%</span>
+                    }
+                    @case ("concluido") {
+                      <span class="ok">Upload concluído</span>
+                    }
+                    @case ("erro") {
+                      <span class="err">{{ row()!.errorMessage ?? "Erro no upload" }}</span>
+                    }
+                  }
+                </div>
+                <p-progressbar [value]="row()!.progress" [showValue]="false" styleClass="queue-progress" />
+              </div>
+              <div class="queue-item__size">{{ formatSize(row()!.file.size) }}</div>
+              @if (row()!.status === "concluido") {
+                <i class="pi pi-check-circle queue-item__check"></i>
+              }
+            </div>
+          </div>
+        }
+      </div>
+
+      <footer class="upload-footer">
+        <p class="upload-footer__summary">
+          Total de <strong>{{ row() ? 1 : 0 }}</strong> arquivo(s) pronto(s) para análise.
+        </p>
+        <div class="upload-footer__actions">
+          <p-button label="Enviar para Análise" icon="pi pi-bolt" [disabled]="row()?.status !== 'concluido'" (onClick)="sendToAnalysis()" />
+        </div>
+      </footer>
+    </section>
+
+    <aside class="upload-aside">
+      <p-card header="Instruções de Upload" styleClass="aside-card">
+        <ol class="aside-list">
+          <li><strong>Formatos aceitos:</strong> PDF, DOC e DOCX (mesmos da API).</li>
+          <li><strong>Tamanho máximo:</strong> 10 MB por arquivo.</li>
+          <li><strong>Um arquivo por vez:</strong> não há processamento em lote — substitua o arquivo atual usando “Limpar tudo” se precisar trocar.</li>
+        </ol>
+      </p-card>
+
+      <div class="privacy-box">
+        <i class="pi pi-shield privacy-box__icon"></i>
+        <div>
+          <div class="privacy-box__title">Privacidade</div>
+          <p class="privacy-box__text">
+            Seus documentos são transmitidos com criptografia e armazenados com controles de acesso. Revise as políticas antes de enviar dados sensíveis.
+          </p>
+        </div>
+      </div>
+    </aside>
+  </div>
+</div>
